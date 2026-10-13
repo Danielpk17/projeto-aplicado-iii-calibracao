@@ -1,5 +1,3 @@
-"""Leitura de XLSX e regras metrológicas do MVP, sem dependências externas."""
-
 from __future__ import annotations
 
 from decimal import Decimal, InvalidOperation
@@ -21,7 +19,7 @@ MAX_READINGS = 20
 
 
 class SpreadsheetError(ValueError):
-    """Erro legível de estrutura ou dados da planilha."""
+    pass
 
 
 def _tag(name: str) -> str:
@@ -125,7 +123,6 @@ def _read_rows(data: bytes) -> list[tuple[int, dict[int, str]]]:
 
 
 def parse_xlsx(data: bytes) -> list[dict]:
-    """Lê a primeira aba: Ponto, Valor Padrão, LEA, Leitura 1..20, Unidade opcional."""
     rows = _read_rows(data)
     if len(rows) < 2:
         raise SpreadsheetError("A planilha precisa de cabeçalho e ao menos um ponto de ensaio.")
@@ -191,7 +188,6 @@ def calculate(points: list[dict]) -> dict:
         count = Decimal(len(point["leituras"]))
         average = total / count
         error = average - point["padrao"]
-        # Compare sem arredondar divisões periódicas: |total - padrão*n| <= LEA*n.
         status = "DENTRO_DA_TOLERANCIA" if abs(total - point["padrao"] * count) <= point["lea"] * count else "FORA_DA_TOLERANCIA"
         rows.append({
             "ponto": point["ponto"],
@@ -211,7 +207,6 @@ def calculate(points: list[dict]) -> dict:
 
 
 def sample_xlsx() -> bytes:
-    """Gera uma planilha modelo XLSX válida, com exemplo aprovado."""
     rows = [
         ["Ponto", "Valor Padrão", "LEA", "Leitura 1", "Leitura 2", "Leitura 3", "Unidade"],
         ["P1", 0, "0.5", "0.1", "0.2", "0.0", "bar"],

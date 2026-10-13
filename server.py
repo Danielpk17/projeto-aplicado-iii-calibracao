@@ -1,5 +1,3 @@
-"""Aplicação web transacional para calibração. Execute: python server.py"""
-
 from __future__ import annotations
 
 import argparse

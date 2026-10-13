@@ -1,5 +1,3 @@
-"""Empacota somente arquivos versionados para entrega no AVA."""
-
 from pathlib import Path
 import subprocess
 from zipfile import ZIP_DEFLATED, ZipFile
