@@ -4,3 +4,4 @@ data/
 .venv/
 *.log
 evidencias/edge-profile/
+*.zip

@@ -43,6 +43,15 @@ class CalculationTests(unittest.TestCase):
         result = calibration.calculate(points)
         self.assertEqual(result["pontos"][0]["classificacao"], "DENTRO_DA_TOLERANCIA")
 
+    def test_repeating_average_does_not_round_into_tolerance(self):
+        points = [{
+            "ponto": "P1", "padrao": Decimal("0"),
+            "lea": Decimal("0.3333333333333333333333333333"),
+            "leituras": [Decimal("0"), Decimal("0"), Decimal("1")], "unidade": "bar",
+        }]
+        result = calibration.calculate(points)
+        self.assertEqual(result["pontos"][0]["classificacao"], "FORA_DA_TOLERANCIA")
+
     def test_negative_lea_is_rejected(self):
         data = replace_sheet('<c r="C2"><v>0.5</v></c>', '<c r="C2"><v>-0.5</v></c>')
         with self.assertRaisesRegex(calibration.SpreadsheetError, "LEA não pode ser negativo"):

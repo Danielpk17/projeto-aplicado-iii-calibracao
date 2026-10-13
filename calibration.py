@@ -129,7 +129,13 @@ def parse_xlsx(data: bytes) -> list[dict]:
     rows = _read_rows(data)
     if len(rows) < 2:
         raise SpreadsheetError("A planilha precisa de cabeçalho e ao menos um ponto de ensaio.")
-    header = {_normal(value): col for col, value in rows[0][1].items() if value}
+    header = {}
+    for col, value in rows[0][1].items():
+        name = _normal(value)
+        if name in header:
+            raise SpreadsheetError(f"Cabeçalho duplicado: {value}.")
+        if name:
+            header[name] = col
     aliases = {
         "ponto": ("ponto", "ponto_de_ensaio"),
         "padrao": ("valor_padrao", "padrao", "valor_de_referencia", "referencia", "valor_referencia"),
@@ -181,9 +187,12 @@ def calculate(points: list[dict]) -> dict:
         raise SpreadsheetError("Nenhum ponto de ensaio foi informado.")
     rows = []
     for point in points:
-        average = sum(point["leituras"], Decimal(0)) / Decimal(len(point["leituras"]))
+        total = sum(point["leituras"], Decimal(0))
+        count = Decimal(len(point["leituras"]))
+        average = total / count
         error = average - point["padrao"]
-        status = "DENTRO_DA_TOLERANCIA" if abs(error) <= point["lea"] else "FORA_DA_TOLERANCIA"
+        # Compare sem arredondar divisões periódicas: |total - padrão*n| <= LEA*n.
+        status = "DENTRO_DA_TOLERANCIA" if abs(total - point["padrao"] * count) <= point["lea"] * count else "FORA_DA_TOLERANCIA"
         rows.append({
             "ponto": point["ponto"],
             "unidade": point["unidade"],

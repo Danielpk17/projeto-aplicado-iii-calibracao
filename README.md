@@ -31,7 +31,7 @@ Na primeira aba, a primeira linha deve conter:
 - Erro sistemático: média menos valor padrão.
 - Dentro da tolerância: valor absoluto do erro menor ou igual ao LEA.
 - Parecer `APROVADO`: todos os pontos dentro da tolerância. Havendo qualquer ponto fora, `REPROVADO`.
-- Os cálculos usam `Decimal` e a classificação ocorre antes da apresentação dos números na tela.
+- Os cálculos usam `Decimal`. Para evitar arredondamento em médias periódicas, a classificação compara `|soma das leituras − padrão × n|` com `LEA × n`, que é equivalente a `|erro| ≤ LEA`.
 
 ## Fluxo transacional
 

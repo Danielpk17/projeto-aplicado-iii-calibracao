@@ -43,7 +43,7 @@
     <div class="formula">Média = soma das leituras ÷ quantidade de leituras</div>
     <div class="formula">Erro sistemático = média − valor padrão</div>
     <div class="formula">Dentro da tolerância quando |erro| ≤ LEA</div>
-    <p>O parecer final é <strong>APROVADO</strong> somente quando todos os pontos estão dentro da tolerância. Se ao menos um ponto estiver fora, é <strong>REPROVADO</strong>. A comparação utiliza o resultado numérico antes de qualquer redução visual de casas decimais.</p>
+    <p>O parecer final é <strong>APROVADO</strong> somente quando todos os pontos estão dentro da tolerância. Se ao menos um ponto estiver fora, é <strong>REPROVADO</strong>. Para não arredondar médias periódicas, a decisão compara |soma − padrão × n| com LEA × n.</p>
     <div class="callout"><strong>Validações de entrada.</strong> O sistema rejeita XLSX inválido, cabeçalho ausente, leitura não numérica, LEA negativo, pontos duplicados e fórmulas, evitando o uso de resultados em cache potencialmente desatualizados.</div>
     <p class="footerline">Fonte dos requisitos: roteiro AV3 fornecido para Projeto Aplicado III. Implementação e exemplos desenvolvidos para esta entrega.</p>
   </section>
@@ -63,18 +63,19 @@
       <tr><td>Aprovado</td><td>P3</td><td>100 bar</td><td>100 bar</td><td>0 bar</td><td>0,5 bar</td><td class="pass">Dentro</td></tr>
       <tr><td>Reprovado</td><td>P3</td><td>100 bar</td><td>101,0667 bar</td><td>1,0667 bar</td><td>0,5 bar</td><td class="fail">Fora</td></tr>
     </tbody></table>
-    <p class="note">Os valores nesta tabela foram abreviados para leitura. O backend preserva a precisão Decimal na decisão. Os dois arquivos XLSX e as respostas JSON completas acompanham o projeto em <code>exemplos/</code> e <code>evidencias/</code>.</p>
+    <p class="note">Os valores nesta tabela foram abreviados para leitura. A decisão utiliza comparação equivalente sem dividir por n. Os dois arquivos XLSX e as respostas JSON completas acompanham o projeto em <code>exemplos/</code> e <code>evidencias/</code>.</p>
     <div class="callout"><strong>Evidência de transação.</strong> Ambos os envios retornaram HTTP 201, receberam IDs distintos e ficaram disponíveis no histórico e no endpoint de consulta individual.</div>
   </section>
 
   <section class="page">
     <div class="page-heading"><span class="page-number">04 / 04</span><span class="eyebrow">3 · Testes, entrega e considerações</span></div>
     <h2>Execução dos testes</h2>
-    <p>O comando <code>python -m unittest discover -s tests -v</code> foi executado no projeto. Resultado: <strong>8 testes, 8 aprovados</strong>.</p>
+    <p>O comando <code>python -m unittest discover -s tests -v</code> foi executado no projeto. Resultado: <strong>9 testes, 9 aprovados</strong>.</p>
     <table class="table"><thead><tr><th>Verificação</th><th>Resultado observado</th></tr></thead><tbody>
       <tr><td>Modelo aprovado e erro negativo</td><td class="pass">OK</td></tr>
       <tr><td>Um ponto fora reprova o certificado</td><td class="pass">OK</td></tr>
       <tr><td>Erro absoluto igual ao LEA</td><td class="pass">OK — dentro</td></tr>
+      <tr><td>Média periódica próxima ao limite</td><td class="pass">OK — fora</td></tr>
       <tr><td>LEA negativo, fórmula e arquivo inválido</td><td class="pass">OK — rejeitados</td></tr>
       <tr><td>Envio HTTP, persistência e consulta</td><td class="pass">OK — 201 e 200</td></tr>
       <tr><td>XLSX inválido enviado à API</td><td class="pass">OK — 400</td></tr>
