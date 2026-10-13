@@ -2,6 +2,8 @@
 
 Projeto Aplicado III · AV3 · Empresa parceira: Schulz S.A.
 
+Modalidade: trabalho individual.
+
 Repositório público: https://github.com/Danielpk17/projeto-aplicado-iii-calibracao
 
 Aplicação web transacional que recebe uma planilha Excel, calcula os indicadores metrológicos por ponto de ensaio, registra o processamento em SQLite e apresenta o parecer final em uma interface imprimível.
