@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Relatório AV3 — Projeto Aplicado III</title>
+<style>
+  @page{size:A4;margin:15mm 16mm 16mm}*{box-sizing:border-box}html{font-family:Arial,Helvetica,sans-serif;color:#173440;font-size:11pt;line-height:1.48}body{margin:0}h1,h2,h3,p{margin-top:0}h1{font-size:31pt;line-height:1.12;letter-spacing:-1.2pt}h2{font-size:17pt;letter-spacing:-.4pt;margin-bottom:12px;color:#123641}h3{font-size:12pt;margin:18px 0 8px;color:#1a6f6c}p{margin-bottom:12px}.muted{color:#627b7f}.small{font-size:9pt}.micro{font-size:8pt}.eyebrow{font-size:9pt;letter-spacing:2px;font-weight:bold;color:#137f79;text-transform:uppercase}.cover{height:256mm;display:flex;flex-direction:column;justify-content:space-between}.cover-top{border-top:9px solid #117c77;padding-top:29px}.cover-kicker{color:#0a8279;font-weight:bold;letter-spacing:2px;text-transform:uppercase;font-size:10pt;margin-bottom:48px}.cover h1{max-width:150mm;margin-bottom:13px}.cover .subtitle{font-size:16pt;color:#527178;max-width:150mm}.cover-box{background:#e7f3ef;border-left:4px solid #167b76;padding:19px 22px;margin-top:34px}.cover-box p{margin:0 0 7px}.cover-bottom{border-top:1px solid #c9dbd6;padding-top:19px;color:#527178;font-size:10pt}.page{page-break-before:always;min-height:255mm}.page-heading{padding-bottom:10px;border-bottom:2px solid #167e77;margin-bottom:21px}.page-number{float:right;color:#99aca7;font-size:9pt}.callout{background:#eaf5f1;border-left:4px solid #21877d;padding:13px 16px;margin:17px 0}.flow{display:flex;gap:6px;margin:15px 0 21px}.flow span{flex:1;background:#123440;color:white;text-align:center;padding:11px 6px;border-radius:5px;font-size:9pt;font-weight:bold}.flow b{color:#94dfca;margin-right:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{border:1px solid #d4e4de;border-radius:7px;padding:13px 15px}.card strong{display:block;color:#127e77;margin-bottom:6px}.formula{font-size:14pt;font-weight:bold;color:#153d46;padding:11px 14px;background:#f4f8f6;border:1px solid #dae8e3;margin:10px 0}.note{font-size:9pt;color:#5e7578}.table{border-collapse:collapse;width:100%;font-size:9pt;margin:11px 0 18px}.table th{background:#17404a;color:white;text-align:left;padding:8px}.table td{padding:8px;border-bottom:1px solid #d9e5e1}.table tr:nth-child(even) td{background:#f4f8f6}.pass{color:#087a6e;font-weight:bold}.fail{color:#b64c44;font-weight:bold}.evidence-frame{height:73mm;border:1px solid #d4e4de;overflow:hidden;border-radius:6px;margin-top:9px;background:#fff}.evidence-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 78%}.evidence-caption{color:#5d7278;font-size:8.5pt;margin:5px 0 17px}.side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:11px}.side-by-side .evidence-frame{height:60mm}.side-by-side .evidence-frame img{object-position:center 77%}.test-list{margin:6px 0 0;padding-left:17px;font-size:9pt}.test-list li{margin-bottom:4px}.footerline{border-top:1px solid #cbded8;padding-top:9px;margin-top:19px;color:#718783;font-size:8pt}.break{page-break-before:always}
+</style>
+</head>
+<body>
+  <section class="cover">
+    <div class="cover-top">
+      <div class="cover-kicker">Relatório de orientação da entrega · AV3 (parte 1)</div>
+      <h1>Automação da emissão de certificados de calibração</h1>
+      <p class="subtitle">Construção da aplicação transacional do MVP</p>
+      <div class="cover-box">
+        <p><strong>Unidade curricular:</strong> Projeto Aplicado III</p>
+        <p><strong>Docente:</strong> Prof. MSc. Hugo Menezes Barra</p>
+        <p><strong>Empresa parceira:</strong> Schulz S.A.</p>
+        <p><strong>Aplicação:</strong> Calibra</p>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <p><strong>Equipe / integrantes:</strong> ______________________________________________</p>
+      <p><strong>Instituição / turma:</strong> _________________________________________________</p>
+      <p>13 de outubro de 2026</p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">02 / 04</span><span class="eyebrow">1 · Projeto e implementação</span></div>
+    <h2>Objetivo e escopo</h2>
+    <p>Foi desenvolvido um MVP web para importar leituras de calibração em arquivo Excel (.xlsx), calcular os indicadores por ponto de ensaio e apresentar um parecer final. O sistema registra cada processamento e permite consultar resultados anteriores.</p>
+    <div class="flow"><span><b>01</b> Planilha Excel</span><span><b>02</b> Validação e cálculos</span><span><b>03</b> Registro SQLite</span><span><b>04</b> Parecer na interface</span></div>
+    <h2>Arquitetura transacional</h2>
+    <div class="grid">
+      <div class="card"><strong>Interface web</strong>HTML, CSS e JavaScript permitem enviar a planilha, visualizar resultados por ponto, acessar o histórico e imprimir o certificado.</div>
+      <div class="card"><strong>Backend em Python</strong>Recebe o arquivo, lê a primeira aba do XLSX, valida os dados, executa os cálculos com Decimal e responde em JSON.</div>
+      <div class="card"><strong>Persistência</strong>SQLite armazena ID, data, instrumento, arquivo de origem, parecer e resultado completo de cada transação.</div>
+      <div class="card"><strong>Entrada padronizada</strong>O modelo inclui Ponto, Valor Padrão, LEA, Leitura 1–3 e Unidade. A aplicação aceita até 20 leituras e 1000 pontos.</div>
+    </div>
+    <h3>Regras metrológicas implementadas</h3>
+    <div class="formula">Média = soma das leituras ÷ quantidade de leituras</div>
+    <div class="formula">Erro sistemático = média − valor padrão</div>
+    <div class="formula">Dentro da tolerância quando |erro| ≤ LEA</div>
+    <p>O parecer final é <strong>APROVADO</strong> somente quando todos os pontos estão dentro da tolerância. Se ao menos um ponto estiver fora, é <strong>REPROVADO</strong>. A comparação utiliza o resultado numérico antes de qualquer redução visual de casas decimais.</p>
+    <div class="callout"><strong>Validações de entrada.</strong> O sistema rejeita XLSX inválido, cabeçalho ausente, leitura não numérica, LEA negativo, pontos duplicados e fórmulas, evitando o uso de resultados em cache potencialmente desatualizados.</div>
+    <p class="footerline">Fonte dos requisitos: roteiro AV3 fornecido para Projeto Aplicado III. Implementação e exemplos desenvolvidos para esta entrega.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">03 / 04</span><span class="eyebrow">2 · Evidências de funcionamento</span></div>
+    <h2>Interface e processamento</h2>
+    <p>A aplicação foi executada localmente. Uma planilha modelo foi enviada para o endpoint de processamento e produziu um certificado com três pontos aprovados. Em seguida, alterou-se uma leitura no terceiro ponto para verificar a reprovação.</p>
+    <div class="side-by-side">
+      <div><div class="evidence-frame"><img src="evidencias/02-aprovado.png" alt="Captura real do certificado aprovado"></div><p class="evidence-caption">Figura 1 — Resultado APROVADO com os três pontos dentro do LEA. ID 1F6CC8E1FC30.</p></div>
+      <div><div class="evidence-frame"><img src="evidencias/03-reprovado.png" alt="Captura real do certificado reprovado"></div><p class="evidence-caption">Figura 2 — Resultado REPROVADO com P3 fora do LEA. ID ED75E71410DA.</p></div>
+    </div>
+    <h3>Resultados calculados nos exemplos</h3>
+    <table class="table"><thead><tr><th>Cenário</th><th>Ponto</th><th>Padrão</th><th>Média</th><th>Erro</th><th>LEA</th><th>Classificação</th></tr></thead><tbody>
+      <tr><td>Aprovado</td><td>P1</td><td>0 bar</td><td>0,1 bar</td><td>0,1 bar</td><td>0,5 bar</td><td class="pass">Dentro</td></tr>
+      <tr><td>Aprovado</td><td>P2</td><td>50 bar</td><td>49,9667 bar</td><td>−0,0333 bar</td><td>0,5 bar</td><td class="pass">Dentro</td></tr>
+      <tr><td>Aprovado</td><td>P3</td><td>100 bar</td><td>100 bar</td><td>0 bar</td><td>0,5 bar</td><td class="pass">Dentro</td></tr>
+      <tr><td>Reprovado</td><td>P3</td><td>100 bar</td><td>101,0667 bar</td><td>1,0667 bar</td><td>0,5 bar</td><td class="fail">Fora</td></tr>
+    </tbody></table>
+    <p class="note">Os valores nesta tabela foram abreviados para leitura. O backend preserva a precisão Decimal na decisão. Os dois arquivos XLSX e as respostas JSON completas acompanham o projeto em <code>exemplos/</code> e <code>evidencias/</code>.</p>
+    <div class="callout"><strong>Evidência de transação.</strong> Ambos os envios retornaram HTTP 201, receberam IDs distintos e ficaram disponíveis no histórico e no endpoint de consulta individual.</div>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">04 / 04</span><span class="eyebrow">3 · Testes, entrega e considerações</span></div>
+    <h2>Execução dos testes</h2>
+    <p>O comando <code>python -m unittest discover -s tests -v</code> foi executado no projeto. Resultado: <strong>8 testes, 8 aprovados</strong>.</p>
+    <table class="table"><thead><tr><th>Verificação</th><th>Resultado observado</th></tr></thead><tbody>
+      <tr><td>Modelo aprovado e erro negativo</td><td class="pass">OK</td></tr>
+      <tr><td>Um ponto fora reprova o certificado</td><td class="pass">OK</td></tr>
+      <tr><td>Erro absoluto igual ao LEA</td><td class="pass">OK — dentro</td></tr>
+      <tr><td>LEA negativo, fórmula e arquivo inválido</td><td class="pass">OK — rejeitados</td></tr>
+      <tr><td>Envio HTTP, persistência e consulta</td><td class="pass">OK — 201 e 200</td></tr>
+      <tr><td>XLSX inválido enviado à API</td><td class="pass">OK — 400</td></tr>
+    </tbody></table>
+    <h3>Reprodução</h3>
+    <p>1. Execute <code>python server.py</code> na pasta do projeto.<br>2. Abra <code>http://127.0.0.1:8000</code> e baixe a planilha modelo.<br>3. Informe o instrumento, selecione o XLSX e clique em “Processar calibração”.<br>4. Consulte a classificação por ponto, o parecer final e o histórico.</p>
+    <h3>Repositório de código</h3>
+    <p><strong>Link público do grupo:</strong> ______________________________________________</p>
+    <p>O código-fonte, os exemplos de planilha, os testes e as capturas de evidência estão organizados na pasta do projeto para publicação no GitHub.</p>
+    <h3>Considerações finais</h3>
+    <p>O MVP demonstrou a ingestão de planilhas, o processamento das regras de negócio e a geração de pareceres coerentes nos cenários aprovado e reprovado. A persistência permite recuperar o certificado após a transação.</p>
+    <p class="note">Os dados de exemplo são sintéticos e servem para demonstrar o funcionamento do software. O sistema acadêmico não implementa incerteza de medição, rastreabilidade formal ou assinatura de laboratório.</p>
+    <p class="footerline">Relatório gerado em 13/10/2026 · Projeto Aplicado III · AV3</p>
+  </section>
+</body>
+</html>

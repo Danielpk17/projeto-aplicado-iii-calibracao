@@ -1,0 +1,53 @@
+{
+  "id": "ED75E71410DA",
+  "criado_em": "2026-10-13T12:03:35+00:00",
+  "instrumento": "Manômetro digital MD-01",
+  "responsavel": "Equipe de demonstração",
+  "arquivo": "calibracao_reprovada.xlsx",
+  "parecer_final": "REPROVADO",
+  "quantidade_pontos": 3,
+  "pontos": [
+    {
+      "ponto": "P1",
+      "unidade": "bar",
+      "padrao": "0",
+      "lea": "0.5",
+      "leituras": [
+        "0.1",
+        "0.2",
+        "0.0"
+      ],
+      "media": "0.1",
+      "erro_sistematico": "0.1",
+      "classificacao": "DENTRO_DA_TOLERANCIA"
+    },
+    {
+      "ponto": "P2",
+      "unidade": "bar",
+      "padrao": "50",
+      "lea": "0.5",
+      "leituras": [
+        "49.8",
+        "50.0",
+        "50.1"
+      ],
+      "media": "49.96666666666666666666666667",
+      "erro_sistematico": "-0.03333333333333333333333333",
+      "classificacao": "DENTRO_DA_TOLERANCIA"
+    },
+    {
+      "ponto": "P3",
+      "unidade": "bar",
+      "padrao": "100",
+      "lea": "0.5",
+      "leituras": [
+        "103.0",
+        "100.2",
+        "100.0"
+      ],
+      "media": "101.0666666666666666666666667",
+      "erro_sistematico": "1.0666666666666666666666667",
+      "classificacao": "FORA_DA_TOLERANCIA"
+    }
+  ]
+}
