@@ -4,6 +4,10 @@ Projeto Aplicado III · Empresa parceira: Schulz S.A. · AV4 (consolidação fin
 
 Repositório público: https://github.com/Danielpk17/projeto-aplicado-iii-calibracao
 
+Plataforma publicada: https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/
+
+Roteiro do vídeo de evidência: [docs/ROTEIRO-VIDEO-AV4.md](docs/ROTEIRO-VIDEO-AV4.md)
+
 A AV3 entregou o motor transacional: recebe uma planilha Excel, calcula os indicadores metrológicos por ponto de ensaio e emite o parecer. A AV4 integra esse motor em dois canais publicados na AWS dentro da camada gratuita:
 
 - **Plataforma Web Gestora** (`/`): o engenheiro envia a planilha, consulta o histórico, imprime o certificado e gera a etiqueta com QR Code do instrumento.
