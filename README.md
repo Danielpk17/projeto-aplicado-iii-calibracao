@@ -6,6 +6,8 @@ Repositório público: https://github.com/Danielpk17/projeto-aplicado-iii-calibr
 
 Plataforma publicada: https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/
 
+Relatório técnico da AV4: [Relatorio_AV4_Calibra.pdf](Relatorio_AV4_Calibra.pdf)
+
 Roteiro do vídeo de evidência: [docs/ROTEIRO-VIDEO-AV4.md](docs/ROTEIRO-VIDEO-AV4.md)
 
 A AV3 entregou o motor transacional: recebe uma planilha Excel, calcula os indicadores metrológicos por ponto de ensaio e emite o parecer. A AV4 integra esse motor em dois canais publicados na AWS dentro da camada gratuita:
