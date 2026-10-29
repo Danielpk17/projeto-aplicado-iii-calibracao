@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Relatório AV4 · Projeto Aplicado III</title>
+<style>
+  @page{size:A4;margin:15mm 16mm 16mm}*{box-sizing:border-box}html{font-family:Arial,Helvetica,sans-serif;color:#173440;font-size:10.5pt;line-height:1.46}body{margin:0}h1,h2,h3,p{margin-top:0}h1{font-size:29pt;line-height:1.12;letter-spacing:-1.2pt}h2{font-size:16pt;letter-spacing:-.4pt;margin-bottom:11px;color:#123641}h3{font-size:11.5pt;margin:16px 0 7px;color:#1a6f6c}p{margin-bottom:10px}.eyebrow{font-size:9pt;letter-spacing:2px;font-weight:bold;color:#137f79;text-transform:uppercase}.cover{height:256mm;display:flex;flex-direction:column;justify-content:space-between}.cover-top{border-top:9px solid #117c77;padding-top:27px}.cover-kicker{color:#0a8279;font-weight:bold;letter-spacing:2px;text-transform:uppercase;font-size:10pt;margin-bottom:40px}.cover h1{max-width:160mm;margin-bottom:12px}.cover .subtitle{font-size:14pt;color:#527178;max-width:160mm}.cover-box{background:#e7f3ef;border-left:4px solid #167b76;padding:17px 21px;margin-top:28px}.cover-box p{margin:0 0 6px}.members{border-collapse:collapse;width:100%;font-size:10pt;margin:6px 0 4px}.members th{text-align:left;color:#527178;font-weight:normal;font-size:9pt;padding:3px 0}.members td{padding:3px 0;border-bottom:1px solid #c9dbd6}.cover-bottom{border-top:1px solid #c9dbd6;padding-top:17px;color:#527178;font-size:10pt}.cover-bottom p{margin:0 0 5px}.page{page-break-before:always;min-height:255mm}.page-heading{padding-bottom:9px;border-bottom:2px solid #167e77;margin-bottom:19px}.page-number{float:right;color:#99aca7;font-size:9pt}.callout{background:#eaf5f1;border-left:4px solid #21877d;padding:12px 15px;margin:15px 0}.flow{display:flex;gap:6px;margin:13px 0 19px}.flow span{flex:1;background:#123440;color:white;text-align:center;padding:10px 6px;border-radius:5px;font-size:8.5pt;font-weight:bold}.flow b{color:#94dfca;margin-right:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.card{border:1px solid #d4e4de;border-radius:7px;padding:12px 14px;font-size:9.5pt}.card strong{display:block;color:#127e77;margin-bottom:5px;font-size:10.5pt}.note{font-size:8.5pt;color:#5e7578}.table{border-collapse:collapse;width:100%;font-size:8.5pt;margin:10px 0 16px}.table th{background:#17404a;color:white;text-align:left;padding:7px}.table td{padding:6px 7px;border-bottom:1px solid #d9e5e1;vertical-align:top}.table tr:nth-child(even) td{background:#f4f8f6}.pass{color:#087a6e;font-weight:bold}.arch{font-family:Consolas,monospace;font-size:8.5pt;background:#123440;color:#dff3ec;padding:13px 15px;border-radius:6px;white-space:pre;line-height:1.5;margin:10px 0 14px}.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0 14px}.steps li{counter-increment:s;position:relative;padding:0 0 9px 32px;font-size:9.5pt}.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:#167b76;color:#fff;font-weight:bold;font-size:9pt;text-align:center;line-height:22px}code{font-family:Consolas,monospace;font-size:8.8pt;background:#eef4f2;padding:1px 4px;border-radius:3px}.cmd{font-family:Consolas,monospace;font-size:8.5pt;background:#f4f8f6;border:1px solid #dae8e3;padding:8px 10px;margin:5px 0 3px;border-radius:4px;white-space:pre-wrap}.shot-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.shot-grid.three{grid-template-columns:1.3fr 1fr 1fr}.frame{height:54mm;border:1px solid #d4e4de;overflow:hidden;border-radius:6px;background:#f4f8f6;display:flex;align-items:center;justify-content:center}.frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}.frame.tall{height:74mm}.frame.tall img{object-fit:contain;background:#fff}.caption{color:#5d7278;font-size:8.3pt;margin:4px 0 13px}.pendente{background:#fff3b0;color:#6b5400;padding:1px 4px;border-radius:3px}.frame .pendente{font-size:9pt}.footerline{border-top:1px solid #cbded8;padding-top:8px;margin-top:16px;color:#718783;font-size:8pt}a{color:#0f6f6a}
+</style>
+</head>
+<body>
+  <section class="cover">
+    <div class="cover-top">
+      <div class="cover-kicker">Relatório técnico integrado · AV4 (Tema 04)</div>
+      <h1>Calibra: plataforma web gestora e validação por QR Code em nuvem</h1>
+      <p class="subtitle">Consolidação final do projeto: plataforma web para engenheiros, consulta mobile no chão de fábrica e deploy serverless na AWS dentro da camada gratuita</p>
+      <div class="cover-box">
+        <p><strong>Unidade curricular:</strong> Projeto Aplicado III</p>
+        <p><strong>Docente:</strong> Prof. MSc. Hugo Menezes Barra</p>
+        <p><strong>Empresa parceira:</strong> Schulz S.A.</p>
+        <p><strong>Integrantes:</strong></p>
+        <table class="members"><thead><tr><th>Nome completo</th><th>RA</th></tr></thead><tbody>
+          <tr><td>Daniel Barrili Dal Piva</td><td><span class="pendente">RA</span></td></tr>
+        </tbody></table>
+        <p style="margin-top:10px"><strong>Repositório GitHub:</strong> <a href="https://github.com/Danielpk17/projeto-aplicado-iii-calibracao">github.com/Danielpk17/projeto-aplicado-iii-calibracao</a></p>
+        <p><strong>Vídeo no YouTube:</strong> <span class="pendente">link do vídeo</span></p>
+        <p><strong>Plataforma em nuvem:</strong> <a href="https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/">https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/</a></p>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <p>Centro Universitário SENAI Santa Catarina · Análise e Desenvolvimento de Sistemas</p>
+      <p>Florianópolis, 29 de outubro de 2026</p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">02 / 07</span><span class="eyebrow">1 · Contexto e visão da solução</span></div>
+    <h2>Do processo manual ao ecossistema integrado</h2>
+    <p>Na Schulz S.A., os certificados de calibração de instrumentos eram emitidos a partir de planilhas preenchidas manualmente, com cálculo de erro e conferência de tolerância feitos à mão e resultado guardado em arquivos dispersos. O operador no chão de fábrica não tinha como saber, diante do instrumento, se ele estava liberado para uso.</p>
+    <div class="flow"><span><b>AV1</b> Investigação do processo manual</span><span><b>AV2</b> Arquitetura serverless de custo zero</span><span><b>AV3</b> Motor transacional metrológico</span><span><b>AV4</b> Plataforma, QR Code e nuvem</span></div>
+    <p>A AV4 integra o motor de cálculo da AV3 em dois canais publicados na AWS, que compartilham o mesmo backend e a mesma base de certificados:</p>
+    <div class="grid">
+      <div class="card"><strong>Plataforma Web Gestora</strong>Usada pelos engenheiros da qualidade. Envia a planilha de leituras, calcula os indicadores por ponto, emite o parecer, mantém o histórico, imprime o certificado e gera a etiqueta com QR Code do instrumento.</div>
+      <div class="card"><strong>Aplicativo Mobile de Validação</strong>Usado pelos operadores. Página mobile que abre a câmera do celular, lê o QR Code da etiqueta e mostra na hora se o instrumento está APROVADO ou REPROVADO, com os pontos de ensaio.</div>
+    </div>
+    <h3>Fluxo ponta a ponta</h3>
+    <ol class="steps">
+      <li>O engenheiro baixa a planilha modelo, preenche as leituras do ensaio e envia pela plataforma, informando instrumento, responsável e chave de acesso.</li>
+      <li>O Lambda valida o arquivo, calcula média, erro sistemático e classificação de cada ponto e grava o certificado no DynamoDB com uma identificação aleatória de 12 caracteres.</li>
+      <li>A plataforma exibe o certificado e a etiqueta com QR Code, que é impressa e colada no instrumento.</li>
+      <li>No chão de fábrica, o operador lê o QR Code com o celular. O código aponta para <code>/c/{id}</code>, então tanto a página de consulta quanto a câmera nativa do celular abrem o resultado.</li>
+    </ol>
+    <div class="callout"><strong>Regra de negócio central.</strong> Um ponto está dentro da tolerância quando |média − valor padrão| ≤ LEA. O certificado só é APROVADO quando todos os pontos estão dentro. A comparação é feita como |soma − padrão × n| ≤ LEA × n com <code>Decimal</code>, sem arredondar médias periódicas.</div>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">03 / 07</span><span class="eyebrow">2 · Plataforma web e aplicativo mobile</span></div>
+    <h2>Plataforma Web Gestora</h2>
+    <p>Página única servida pelo próprio Lambda, em HTML, CSS e JavaScript sem framework. Funcionalidades: envio da planilha por arrastar e soltar, download da planilha modelo, resultado por ponto com destaque dos pontos fora do LEA, parecer final, histórico das 50 análises mais recentes, impressão do certificado em PDF pelo navegador e geração da etiqueta com QR Code.</p>
+    <div class="shot-grid">
+      <div><div class="frame"><img src="evidencias/av4-01-plataforma.png" alt="Plataforma web gestora"></div><p class="caption">Figura 1. Plataforma web publicada na AWS: envio da planilha e critério metrológico.</p></div>
+      <div><div class="frame"><img src="evidencias/av4-02-certificado.png" alt="Certificado com QR Code" style="object-position:center 47%"></div><p class="caption">Figura 2. Certificado APROVADO emitido na nuvem, com a etiqueta de QR Code e o histórico.</p></div>
+    </div>
+    <h2>Aplicativo Mobile de Validação (QR Code)</h2>
+    <p>A consulta (<code>/consulta</code>) foi desenhada para celular. O botão principal abre a câmera traseira com a biblioteca html5-qrcode; ao reconhecer o código, a página busca o certificado e mostra o parecer em tela cheia, em verde ou vermelho, com a tabela de pontos. Se a câmera não estiver disponível, o operador digita a identificação. A consulta é pública por desenho: o operador não precisa de login, e a identificação aleatória de 12 caracteres hexadecimais impede a enumeração dos certificados.</p>
+    <div class="shot-grid three">
+      <div><div class="frame tall"><img src="evidencias/av4-03-leitura.png" alt="Leitura do QR Code pelo celular"></div><p class="caption">Figura 3. Tela de leitura do QR Code.</p></div>
+      <div><div class="frame tall"><img src="evidencias/av4-04-aprovado-mobile.png" alt="Parecer aprovado no celular"></div><p class="caption">Figura 4. Instrumento APROVADO (ID 31BCDED6354C).</p></div>
+      <div><div class="frame tall"><img src="evidencias/av4-05-reprovado-mobile.png" alt="Parecer reprovado no celular"></div><p class="caption">Figura 5. Instrumento REPROVADO, P3 fora do LEA (ID E4F3C8515BBB).</p></div>
+    </div>
+    <p class="note">A solução atende às duas frentes do roteiro (plataforma web e aplicação mobile) com uma página web responsiva no lugar de um aplicativo nativo: o operador não precisa instalar nada, e a câmera do navegador funciona em HTTPS, que a Function URL já oferece.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">04 / 07</span><span class="eyebrow">3 · Arquitetura em nuvem</span></div>
+    <h2>Arquitetura serverless na AWS</h2>
+    <div class="arch">Celular / navegador ──HTTPS──▶ Lambda Function URL ──▶ AWS Lambda (Python 3.13, arm64, 256 MB)
+                                                       │  serve as páginas, a API e os cálculos
+                                                       ▼
+                                                 Amazon DynamoDB (tabela de certificados)
+CloudWatch Logs (retenção de 7 dias)  ·  AWS Budgets (alerta acima de US$ 0,01)</div>
+    <p>Toda a infraestrutura está descrita como código em <code>template.yaml</code> (AWS SAM) e é criada por um único script. O mesmo código roda localmente com SQLite (<code>server.py</code>) e na nuvem com DynamoDB (<code>src/lambda_function.py</code>); as rotas ficam em <code>src/web.py</code> e são compartilhadas pelos dois ambientes.</p>
+    <h3>Uso da camada gratuita</h3>
+    <table class="table"><thead><tr><th>Serviço</th><th>Uso no Calibra</th><th>Limite gratuito</th><th>Consumo esperado</th></tr></thead><tbody>
+      <tr><td>AWS Lambda + Function URL</td><td>Páginas, API e cálculos</td><td>1 milhão de requisições e 400 mil GB-s por mês, sempre gratuito</td><td>Centenas de requisições por mês</td></tr>
+      <tr><td>Amazon DynamoDB</td><td>Persistência dos certificados</td><td>25 GB e 25 RCU/WCU provisionadas, sempre gratuito</td><td>2 RCU e 2 WCU (tabela e índice), poucos MB</td></tr>
+      <tr><td>CloudWatch Logs</td><td>Logs da função</td><td>5 GB por mês</td><td>Poucos MB, retenção de 7 dias</td></tr>
+      <tr><td>AWS Budgets</td><td>Alerta de custo</td><td>2 orçamentos gratuitos</td><td>1 orçamento</td></tr>
+      <tr><td>Amazon S3</td><td>Artefatos do deploy (SAM)</td><td>5 GB nos 12 primeiros meses</td><td>Alguns KB</td></tr>
+    </tbody></table>
+    <h3>Decisões de projeto para custo zero</h3>
+    <div class="grid">
+      <div class="card"><strong>Function URL em vez de API Gateway</strong>O API Gateway só é gratuito nos 12 primeiros meses. A Function URL não tem cobrança própria além do Lambda e já entrega HTTPS.</div>
+      <div class="card"><strong>Frontend servido pelo Lambda</strong>As páginas são entregues pela própria função, sem bucket S3 público nem CloudFront.</div>
+      <div class="card"><strong>DynamoDB provisionado em 1/1</strong>Capacidade fixa e mínima, dentro do limite permanente de 25 unidades, sem risco de cobrança por pico como no modo sob demanda.</div>
+      <div class="card"><strong>Lambda em arm64</strong>Graviton consome menos GB-s pelo mesmo trabalho, o que deixa ainda mais folga na cota mensal.</div>
+    </div>
+    <div class="callout"><strong>Segurança.</strong> O envio de planilhas exige a chave de acesso do engenheiro (cabeçalho <code>X-Chave</code>), guardada em variável de ambiente do Lambda e comparada em tempo constante. O template recebe a chave como parâmetro <code>NoEcho</code>. A função tem permissão apenas de CRUD na própria tabela. Numa versão de produção, a chave iria para o Secrets Manager e o login seria por Amazon Cognito.</div>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">05 / 07</span><span class="eyebrow">4 · Roteiro de deploy na nuvem</span></div>
+    <h2>Roteiro de deploy</h2>
+    <p>O deploy é reprodutível e feito por script, a partir de um clone do repositório. Pré-requisitos: conta AWS, Python 3.13, AWS CLI e AWS SAM CLI.</p>
+    <ol class="steps">
+      <li><strong>Instalar as ferramentas.</strong><div class="cmd">winget install Amazon.AWSCLI
+winget install Amazon.SAM-CLI</div></li>
+      <li><strong>Criar um usuário IAM para o deploy</strong> com permissões de CloudFormation, Lambda, DynamoDB, IAM (criação de papéis), S3, CloudWatch Logs e Budgets, gerar a chave de acesso e configurar a CLI na região de São Paulo:<div class="cmd">aws configure    (região: sa-east-1)</div></li>
+      <li><strong>Executar o script de deploy</strong>, informando o e-mail do alerta de custo e a chave dos engenheiros:<div class="cmd">.\deploy\deploy.ps1 -EmailAlerta email@dominio.com -ChaveAcesso "chave-forte"</div>O script confere as credenciais, roda os 14 testes, valida o template, executa <code>sam build</code> e <code>sam deploy</code> e imprime as saídas <code>UrlPlataforma</code> e <code>UrlConsulta</code>.</li>
+      <li><strong>Confirmar a assinatura</strong> do e-mail enviado pelo AWS Budgets para ativar o alerta de custo.</li>
+      <li><strong>Validar</strong> abrindo <code>UrlPlataforma</code>, processando a planilha modelo e lendo o QR Code gerado pelo celular em <code>UrlConsulta</code>.</li>
+    </ol>
+    <h3>Atualização e remoção</h3>
+    <p>Novas versões são publicadas rodando o mesmo script, que aplica apenas as diferenças via CloudFormation. Para remover tudo: <code>.\deploy\destroy.ps1</code>. A tabela DynamoDB tem política <code>Retain</code> para não perder certificados numa remoção acidental. Em Linux ou macOS o equivalente é <code>deploy/deploy.sh</code>.</p>
+    <h3>Evidência do deploy</h3>
+    <div class="shot-grid">
+      <div><div class="frame"><img src="evidencias/av4-06-cloudformation.jpg" alt="Stack no CloudFormation"></div><p class="caption">Figura 6. Stack <code>calibra</code> em CREATE_COMPLETE no CloudFormation (sa-east-1), com Lambda, Function URL, papel IAM, logs e orçamento.</p></div>
+      <div><div class="frame"><img src="evidencias/av4-07-custo.jpg" alt="Custo zero no Billing"></div><p class="caption">Figura 7. Painel do nível gratuito: conta sem cobrança e nenhum serviço acima dos limites.</p></div>
+    </div>
+    <p><strong>Plataforma Web Gestora:</strong> <a href="https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/">https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/</a><br><strong>Consulta no chão de fábrica:</strong> <a href="https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/consulta">https://7swe75rdj4bpp5lqvvzpc3ida40ieyrw.lambda-url.sa-east-1.on.aws/consulta</a></p>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">06 / 07</span><span class="eyebrow">5 · Matriz de rastreabilidade de requisitos</span></div>
+    <h2>Matriz de rastreabilidade</h2>
+    <p>Cada requisito liga a necessidade levantada na Schulz S.A. à etapa em que surgiu, ao código que o implementa e à forma de verificação.</p>
+    <table class="table"><thead><tr><th>ID</th><th>Requisito</th><th>Origem</th><th>Implementação</th><th>Verificação</th><th>Status</th></tr></thead><tbody>
+      <tr><td>RF01</td><td>Importar leituras de calibração a partir de planilha Excel padronizada</td><td>AV1</td><td><code>calibration.py</code>, <code>POST /api/processar</code></td><td>Teste de upload; Fig. 1</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF02</td><td>Calcular média e erro sistemático por ponto de ensaio</td><td>AV3</td><td><code>calibration.py</code></td><td>Teste de erro negativo</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF03</td><td>Classificar cada ponto pelo LEA e emitir parecer APROVADO ou REPROVADO</td><td>AV3</td><td><code>calibration.py</code></td><td>Testes de ponto fora, erro igual ao LEA e média periódica</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF04</td><td>Rejeitar entradas inválidas (arquivo, cabeçalho, LEA negativo, fórmulas)</td><td>AV3</td><td><code>calibration.py</code>, <code>web.py</code></td><td>Testes de LEA negativo, fórmula, arquivo e XLSX inválidos</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF05</td><td>Persistir cada certificado e consultá-lo depois</td><td>AV3</td><td><code>storage.py</code> (SQLite e DynamoDB)</td><td>Testes de persistência local e no DynamoDB</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF06</td><td>Listar o histórico de análises</td><td>AV1</td><td><code>GET /api/certificados</code>, <code>app.js</code></td><td>Teste de listagem; Fig. 1</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF07</td><td>Imprimir o certificado de calibração</td><td>AV1</td><td><code>index.html</code>, <code>app.js</code></td><td>Fig. 2; vídeo</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF08</td><td>Gerar etiqueta com QR Code por instrumento</td><td>AV4</td><td><code>app.js</code>, <code>qrcode.min.js</code></td><td>Fig. 2; vídeo</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF09</td><td>Ler o QR Code pelo celular e exibir o parecer na hora</td><td>AV4</td><td><code>consulta.html</code>, <code>consulta.js</code>, rota <code>/c/{id}</code></td><td>Teste do link do QR; Fig. 3 a 5; vídeo</td><td class="pass">Atendido</td></tr>
+      <tr><td>RF10</td><td>Disponibilizar a planilha modelo para download</td><td>AV3</td><td><code>GET /modelo.xlsx</code></td><td>Teste de download binário</td><td class="pass">Atendido</td></tr>
+      <tr><td>RNF01</td><td>Operar na AWS estritamente dentro da camada gratuita</td><td>AV2</td><td><code>template.yaml</code>, AWS Budgets</td><td>Fig. 7; alerta de US$ 0,01</td><td class="pass">Atendido</td></tr>
+      <tr><td>RNF02</td><td>Arquitetura serverless e infraestrutura como código</td><td>AV2</td><td><code>template.yaml</code>, <code>deploy/</code></td><td>Fig. 6; roteiro de deploy</td><td class="pass">Atendido</td></tr>
+      <tr><td>RNF03</td><td>Restringir o envio de planilhas aos engenheiros</td><td>AV4</td><td><code>web.py</code> (<code>X-Chave</code>, tempo constante)</td><td>Teste da chave de acesso</td><td class="pass">Atendido</td></tr>
+      <tr><td>RNF04</td><td>Consulta mobile sem login e sem instalação</td><td>AV4</td><td><code>consulta.html</code> responsiva, ID aleatório</td><td>Fig. 3 a 5; teste de ID inexistente (404)</td><td class="pass">Atendido</td></tr>
+      <tr><td>RNF05</td><td>Precisão numérica sem arredondamento indevido</td><td>AV3</td><td><code>Decimal</code> em <code>calibration.py</code></td><td>Teste de média periódica</td><td class="pass">Atendido</td></tr>
+      <tr><td>RNF06</td><td>Comunicação cifrada (HTTPS)</td><td>AV2</td><td>Lambda Function URL</td><td>URL publicada; câmera liberada no navegador</td><td class="pass">Atendido</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="page">
+    <div class="page-heading"><span class="page-number">07 / 07</span><span class="eyebrow">6 · Testes, evidências e considerações</span></div>
+    <h2>Testes automatizados</h2>
+    <p>O comando <code>python -m unittest discover -s tests -v</code> roda antes de todo deploy. Resultado: <strong>14 testes, 14 aprovados</strong>.</p>
+    <table class="table"><thead><tr><th>Grupo</th><th>Verificações</th><th>Resultado</th></tr></thead><tbody>
+      <tr><td>Regras de cálculo (AV3)</td><td>Modelo aprovado com erro negativo; um ponto fora reprova; erro igual ao LEA fica dentro; média periódica não arredonda para dentro</td><td class="pass">4 de 4</td></tr>
+      <tr><td>Validação de entrada</td><td>LEA negativo, fórmula e arquivo inválido rejeitados</td><td class="pass">3 de 3</td></tr>
+      <tr><td>Fluxo HTTP local (SQLite)</td><td>Upload persiste e é consultado; XLSX inválido retorna 400</td><td class="pass">2 de 2</td></tr>
+      <tr><td>Handler do Lambda (DynamoDB simulado)</td><td>Upload pela Function URL; página do QR; download do modelo; chave protege só o envio; certificado inexistente retorna 404</td><td class="pass">5 de 5</td></tr>
+    </tbody></table>
+    <h2>Evidência da plataforma em nuvem</h2>
+    <p>O vídeo narrado mostra a execução completa na AWS: acesso à URL publicada, download da planilha modelo, processamento de um cenário aprovado e de um reprovado, histórico, impressão do certificado, geração da etiqueta, leitura do QR Code pelo celular no chão de fábrica e o painel de custos zerado.</p>
+    <p><strong>Vídeo no YouTube:</strong> <span class="pendente">link do vídeo</span><br><strong>Repositório:</strong> <a href="https://github.com/Danielpk17/projeto-aplicado-iii-calibracao">https://github.com/Danielpk17/projeto-aplicado-iii-calibracao</a></p>
+    <h3>Considerações finais</h3>
+    <p>O projeto saiu de um processo manual e fragmentado para um ecossistema em que o certificado nasce de uma planilha validada, fica registrado na nuvem e chega ao operador por um QR Code colado no próprio instrumento. A arquitetura serverless mantém o custo em zero para o volume da Schulz S.A. e escala sem mudança de código se o uso crescer.</p>
+    <h3>Limitações e próximos passos</h3>
+    <p>O sistema é acadêmico: não calcula incerteza de medição nem substitui a rastreabilidade formal e a assinatura de um laboratório acreditado. Como evolução, propõe-se login com Amazon Cognito, chave no Secrets Manager, validade do certificado com alerta de recalibração e integração com o cadastro de instrumentos da empresa.</p>
+    <p class="footerline">Relatório gerado em 29/10/2026 · Projeto Aplicado III · AV4</p>
+  </section>
+</body>
+</html>
