@@ -6,13 +6,14 @@
   <meta name="theme-color" content="#112b38">
   <title>Calibra | Certificados de calibração</title>
   <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/vendor/qrcode.min.js" defer></script>
   <script src="/static/app.js" defer></script>
 </head>
 <body>
   <div class="shell">
     <header class="topbar">
       <a class="brand" href="/" aria-label="Calibra, página inicial"><span class="brand-icon">◎</span><span>calibra<span class="brand-period">.</span></span></a>
-      <span class="course-label">PROJETO APLICADO III <span class="separator">/</span> AV3</span>
+      <nav class="top-nav"><a class="nav-link" href="/consulta">Consulta no chão de fábrica ↗</a><span class="course-label">PROJETO APLICADO III <span class="separator">/</span> AV4</span></nav>
     </header>
 
     <main>
@@ -40,10 +41,14 @@
             <input id="instrumento" name="instrumento" type="text" maxlength="120" required placeholder="Ex.: Manômetro digital MD-01">
             <label for="responsavel">Responsável pela calibração</label>
             <input id="responsavel" name="responsavel" type="text" maxlength="120" placeholder="Nome do responsável">
+            <div id="key-field" hidden>
+              <label for="chave">Chave de acesso do engenheiro <span class="required">*</span></label>
+              <input id="chave" name="chave" type="password" maxlength="200" autocomplete="current-password" placeholder="Fornecida pelo administrador">
+            </div>
             <label class="dropzone" for="arquivo" id="dropzone">
               <span class="upload-symbol">↑</span>
               <strong id="file-label">Selecione a planilha Excel</strong>
-              <small>Arquivo .xlsx de até 8 MB</small>
+              <small>Arquivo .xlsx de até 4 MB</small>
               <input id="arquivo" name="arquivo" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
             </label>
             <button id="process-button" class="primary-button" type="submit">Processar calibração <span aria-hidden="true">→</span></button>
@@ -67,6 +72,14 @@
           <div id="result-meta" class="result-meta"></div>
           <div class="table-wrap"><table><thead><tr><th>Ponto</th><th>Padrão</th><th>Leituras</th><th>Média</th><th>Erro</th><th>LEA</th><th>Classificação</th></tr></thead><tbody id="result-rows"></tbody></table></div>
           <p class="result-note">Erro sistemático = média − padrão. A classificação compara soma e LEA sem arredondar a média.</p>
+          <div class="qr-block">
+            <div id="qr-code" class="qr-code" aria-label="QR Code do certificado"></div>
+            <div class="qr-copy">
+              <p class="kicker">ETIQUETA DO INSTRUMENTO</p>
+              <p>Cole este QR Code no instrumento. O operador lê com o celular e vê o parecer na hora, sem login.</p>
+              <a id="qr-link" class="template-link" href="#" target="_blank" rel="noopener"></a>
+            </div>
+          </div>
         </div>
       </section>
 

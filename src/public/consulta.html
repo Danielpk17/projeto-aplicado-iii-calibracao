@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#112b38">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Calibra | Consulta de instrumento</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/vendor/html5-qrcode.min.js" defer></script>
+  <script src="/static/consulta.js" defer></script>
+</head>
+<body class="scan-body">
+  <div class="scan-shell">
+    <header class="scan-top">
+      <a class="brand" href="/" aria-label="Calibra, plataforma gestora"><span class="brand-icon">◎</span><span>calibra<span class="brand-period">.</span></span></a>
+      <span class="course-label">CHÃO DE FÁBRICA</span>
+    </header>
+
+    <main class="scan-main">
+      <section class="scan-card" id="scan-card" aria-labelledby="scan-title">
+        <p class="kicker">VALIDAÇÃO DO INSTRUMENTO</p>
+        <h1 id="scan-title">Aponte para o QR Code da etiqueta</h1>
+        <div id="reader" class="reader" hidden></div>
+        <button id="scan-button" class="primary-button" type="button">Ler QR Code com a câmera</button>
+        <form id="manual-form" class="manual-form">
+          <label for="manual-id">Ou digite a identificação</label>
+          <div class="manual-row">
+            <input id="manual-id" type="text" inputmode="text" autocapitalize="characters" maxlength="12" placeholder="Ex.: 1F6CC8E1FC30" pattern="[0-9A-Fa-f]{12}">
+            <button class="outline-button" type="submit">Consultar</button>
+          </div>
+        </form>
+        <p id="scan-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="verdict" class="verdict" hidden aria-live="polite">
+        <div class="verdict-banner" id="verdict-banner">
+          <span class="verdict-icon" id="verdict-icon" aria-hidden="true"></span>
+          <div><span class="result-label">PARECER</span><strong id="verdict-status"></strong><small id="verdict-hint"></small></div>
+        </div>
+        <dl class="verdict-meta" id="verdict-meta"></dl>
+        <h2 class="verdict-subtitle">Pontos de ensaio</h2>
+        <ul class="point-list" id="point-list"></ul>
+        <button id="again-button" class="outline-button again-button" type="button">Ler outro instrumento</button>
+      </section>
+    </main>
+    <footer><span>CALIBRA · CONSULTA</span><span>Projeto Aplicado III · Schulz S.A.</span></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Calibra, plataforma serverless de certificados de calibração (Projeto Aplicado III, Schulz S.A.)
+
+Parameters:
+  ChaveAcesso:
+    Type: String
+    NoEcho: true
+    MinLength: 8
+    Description: Chave que os engenheiros informam para processar planilhas. A consulta por QR Code continua pública.
+  EmailAlerta:
+    Type: String
+    AllowedPattern: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+    Description: E-mail que recebe o alerta do orçamento de custo zero.
+
+Resources:
+  TabelaCertificados:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BillingMode: PROVISIONED
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: tipo
+          AttributeType: S
+        - AttributeName: criado_em
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: por_data
+          KeySchema:
+            - AttributeName: tipo
+              KeyType: HASH
+            - AttributeName: criado_em
+              KeyType: RANGE
+          Projection:
+            ProjectionType: INCLUDE
+            NonKeyAttributes: [instrumento, arquivo, parecer, quantidade_pontos]
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
+  FuncaoCalibra:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: lambda_function.handler
+      Runtime: python3.13
+      Architectures: [arm64]
+      MemorySize: 256
+      Timeout: 15
+      Environment:
+        Variables:
+          TABELA_CERTIFICADOS: !Ref TabelaCertificados
+          CHAVE_ACESSO: !Ref ChaveAcesso
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TabelaCertificados
+      FunctionUrlConfig:
+        AuthType: NONE
+
+  PermissaoUrlPublica:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref FuncaoCalibra
+      Principal: "*"
+      InvokedViaFunctionUrl: true
+
+  LogsCalibra:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${FuncaoCalibra}
+      RetentionInDays: 7
+
+  OrcamentoCustoZero:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: !Sub ${AWS::StackName}-custo-zero
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit:
+          Amount: 1
+          Unit: USD
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            ThresholdType: ABSOLUTE_VALUE
+            Threshold: 0.01
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EmailAlerta
+        - Notification:
+            NotificationType: FORECASTED
+            ComparisonOperator: GREATER_THAN
+            ThresholdType: PERCENTAGE
+            Threshold: 100
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EmailAlerta
+
+Outputs:
+  UrlPlataforma:
+    Description: Plataforma Web Gestora (engenheiros)
+    Value: !GetAtt FuncaoCalibraUrl.FunctionUrl
+  UrlConsulta:
+    Description: Consulta por QR Code (chão de fábrica)
+    Value: !Sub ${FuncaoCalibraUrl.FunctionUrl}consulta
+  TabelaDynamoDB:
+    Value: !Ref TabelaCertificados

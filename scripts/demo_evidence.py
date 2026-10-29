@@ -6,7 +6,7 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from calibration import sample_xlsx
 
 

@@ -1,7 +1,10 @@
+import base64
 from decimal import Decimal
 from io import BytesIO
 import json
+import os
 from pathlib import Path
+import sys
 import tempfile
 import threading
 import unittest
@@ -9,8 +12,12 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
 import calibration
+import lambda_function
 import server
+from storage import DynamoStore
 
 
 def replace_sheet(old: str, new: str) -> bytes:
@@ -117,6 +124,81 @@ class HttpFlowTests(unittest.TestCase):
                 httpd.server_close()
                 thread.join(timeout=3)
                 server.DATABASE = original_database
+
+
+class FakeTable:
+    def __init__(self):
+        self.items = {}
+
+    def put_item(self, Item, ConditionExpression=None):
+        if Item["id"] in self.items:
+            raise RuntimeError("duplicado")
+        self.items[Item["id"]] = dict(Item)
+
+    def get_item(self, Key):
+        item = self.items.get(Key["id"])
+        return {"Item": item} if item else {}
+
+    def query(self, IndexName, KeyConditionExpression, ExpressionAttributeValues, ScanIndexForward, Limit):
+        rows = sorted((item for item in self.items.values() if item["tipo"] == ExpressionAttributeValues[":tipo"]), key=lambda item: item["criado_em"], reverse=not ScanIndexForward)
+        return {"Items": rows[:Limit]}
+
+
+def lambda_event(method, path, body=b"", headers=None):
+    return {
+        "rawPath": path,
+        "requestContext": {"http": {"method": method}},
+        "headers": headers or {},
+        "body": base64.b64encode(body).decode("ascii") if body else None,
+        "isBase64Encoded": bool(body),
+    }
+
+
+class LambdaTests(unittest.TestCase):
+    def setUp(self):
+        self.original_store = lambda_function.store
+        lambda_function.store = DynamoStore("teste", table=FakeTable())
+
+    def tearDown(self):
+        lambda_function.store = self.original_store
+        os.environ.pop("CHAVE_ACESSO", None)
+
+    def upload(self, headers=None):
+        base = {"x-filename": "modelo.xlsx", "x-instrumento": "Manometro MD-01"}
+        return lambda_function.handler(lambda_event("POST", "/api/processar", calibration.sample_xlsx(), {**base, **(headers or {})}), None)
+
+    def test_upload_through_function_url_persists_in_dynamodb(self):
+        created = self.upload()
+        self.assertEqual(created["statusCode"], 201)
+        document = json.loads(created["body"])
+        fetched = lambda_function.handler(lambda_event("GET", "/api/certificados/" + document["id"]), None)
+        listed = lambda_function.handler(lambda_event("GET", "/api/certificados"), None)
+        self.assertEqual(json.loads(fetched["body"])["parecer_final"], "APROVADO")
+        self.assertEqual(json.loads(listed["body"])[0], {
+            "id": document["id"], "criado_em": document["criado_em"], "instrumento": "Manometro MD-01",
+            "arquivo": "modelo.xlsx", "parecer": "APROVADO", "quantidade_pontos": 3,
+        })
+
+    def test_qr_short_link_serves_mobile_page(self):
+        response = lambda_function.handler(lambda_event("GET", "/c/1F6CC8E1FC30"), None)
+        self.assertEqual(response["statusCode"], 200)
+        self.assertIn("consulta.js", response["body"])
+
+    def test_template_download_is_base64_binary(self):
+        response = lambda_function.handler(lambda_event("GET", "/modelo.xlsx"), None)
+        self.assertTrue(response["isBase64Encoded"])
+        self.assertEqual(base64.b64decode(response["body"]), calibration.sample_xlsx())
+
+    def test_access_key_protects_upload_only(self):
+        os.environ["CHAVE_ACESSO"] = "segredo"
+        self.assertEqual(self.upload()["statusCode"], 401)
+        self.assertEqual(self.upload({"x-chave": "errada"})["statusCode"], 401)
+        self.assertEqual(self.upload({"x-chave": "segredo"})["statusCode"], 201)
+        self.assertEqual(lambda_function.handler(lambda_event("GET", "/api/certificados"), None)["statusCode"], 200)
+
+    def test_unknown_certificate_returns_404(self):
+        response = lambda_function.handler(lambda_event("GET", "/api/certificados/000000000000"), None)
+        self.assertEqual(response["statusCode"], 404)
 
 
 if __name__ == "__main__":

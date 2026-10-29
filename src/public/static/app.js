@@ -4,6 +4,11 @@ const fileLabel = document.getElementById('file-label');
 const dropzone = document.getElementById('dropzone');
 const message = document.getElementById('message');
 const processButton = document.getElementById('process-button');
+const keyField = document.getElementById('key-field');
+const keyInput = document.getElementById('chave');
+const KEY_STORAGE = 'calibra-chave';
+
+try { keyInput.value = localStorage.getItem(KEY_STORAGE) || ''; } catch (error) {}
 
 function element(tag, className, value) {
   const item = document.createElement(tag);
@@ -56,7 +61,8 @@ form.addEventListener('submit', async event => {
   event.preventDefault();
   const file = fileInput.files[0];
   if (!file) return setMessage('Selecione uma planilha .xlsx.');
-  if (!file.name.toLowerCase().endsWith('.xlsx') || file.size > 8_000_000) return setMessage('Use um arquivo .xlsx de até 8 MB.');
+  if (!file.name.toLowerCase().endsWith('.xlsx') || file.size > 4_000_000) return setMessage('Use um arquivo .xlsx de até 4 MB.');
+  if (!keyField.hidden && !keyInput.value) return setMessage('Informe a chave de acesso.');
   processButton.disabled = true;
   processButton.textContent = 'Processando…';
   setMessage('');
@@ -67,10 +73,12 @@ form.addEventListener('submit', async event => {
         'Content-Type': 'application/octet-stream',
         'X-Filename': encodeURIComponent(file.name),
         'X-Instrumento': encodeURIComponent(document.getElementById('instrumento').value),
-        'X-Responsavel': encodeURIComponent(document.getElementById('responsavel').value || 'Não informado')
+        'X-Responsavel': encodeURIComponent(document.getElementById('responsavel').value || 'Não informado'),
+        'X-Chave': encodeURIComponent(keyInput.value)
       },
       body: file
     });
+    try { localStorage.setItem(KEY_STORAGE, keyInput.value); } catch (error) {}
     renderResult(result);
     history.replaceState(null, '', '?certificado=' + result.id);
     await loadHistory();
@@ -119,6 +127,21 @@ function renderResult(data) {
     row.append(classification);
     tbody.append(row);
   }
+  renderQr(data.id);
+}
+
+function renderQr(id) {
+  const url = window.location.origin + '/c/' + id;
+  const link = document.getElementById('qr-link');
+  link.href = url;
+  link.textContent = url;
+  const target = document.getElementById('qr-code');
+  target.replaceChildren();
+  if (typeof qrcode !== 'function') return;
+  const code = qrcode(0, 'M');
+  code.addData(url);
+  code.make();
+  target.innerHTML = code.createSvgTag({cellSize: 5, margin: 2, scalable: true});
 }
 
 async function loadHistory() {
@@ -151,6 +174,7 @@ async function loadHistory() {
 }
 
 document.getElementById('print-button').addEventListener('click', () => window.print());
+api('/api/saude').then(info => { keyField.hidden = !info.requer_chave; }).catch(() => {});
 loadHistory().catch(() => setMessage('Não foi possível carregar o histórico.'));
 const selectedCertificate = new URLSearchParams(window.location.search).get('certificado');
 if (selectedCertificate && /^[A-F0-9]{12}$/.test(selectedCertificate)) {
